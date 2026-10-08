@@ -1,0 +1,113 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "claude/**"]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Playgrounds 互換チェック
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Swift Playgrounds compatibility
+        run: python3 scripts/check_playgrounds_compat.py
+
+  linux:
+    name: Linux テスト (Swift ${{ matrix.swift }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    container: swift:${{ matrix.swift }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # 5.10 = Swift Playgrounds 4.5 / 6.x = Playgrounds 4.6 以降
+        swift: ["5.10", "6.0", "6.3"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Swift version
+        run: swift --version
+      - name: Strict concurrency build (Swift 6 language mode)
+        if: matrix.swift != '5.10'
+        run: swift build --target SiliconFlowKit -Xswiftc -swift-version -Xswiftc 6
+      - name: Build tests
+        run: swift build --build-tests
+      - name: Run tests
+        run: swift test --skip-build
+        env:
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          SILICONFLOW_REGION: ${{ vars.SILICONFLOW_REGION }}
+
+  macos:
+    name: macOS テスト
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Swift version
+        run: swift --version
+      - name: Strict concurrency build (Swift 6 language mode)
+        run: swift build --target SiliconFlowKit -Xswiftc -swift-version -Xswiftc 6
+      - name: Run tests
+        run: swift test
+        env:
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          SILICONFLOW_REGION: ${{ vars.SILICONFLOW_REGION }}
+
+  ios-app:
+    name: iPad アプリのビルド (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, macos-26]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Xcode version
+        run: xcodebuild -version
+      - name: Build SiliconFlowLab.swiftpm for iOS Simulator
+        run: bash scripts/build_ios_app.sh
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build-log-${{ matrix.os }}
+          path: build-logs/
+          if-no-files-found: ignore
+
+  package:
+    name: .swiftpm を配布用 zip にまとめる
+    needs: [lint, linux, macos, ios-app]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create zip
+        run: bash scripts/package_swiftpm.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SiliconFlowLab.swiftpm
+          path: dist/SiliconFlowLab.swiftpm.zip
+      - name: Publish "latest" release (main only)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest --yes --cleanup-tag || true
+          gh release create latest dist/SiliconFlowLab.swiftpm.zip \
+            --title "SiliconFlow Lab（最新版）" \
+            --notes "iPad の Safari でこの zip をダウンロード → ファイル App で開いて展開 → SiliconFlowLab.swiftpm をタップすると Swift Playgrounds で開きます。（コミット ${GITHUB_SHA::7}）" \
+            --target "$GITHUB_SHA"
