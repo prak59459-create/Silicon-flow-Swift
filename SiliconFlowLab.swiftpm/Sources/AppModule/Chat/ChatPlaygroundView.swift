@@ -64,39 +64,17 @@ struct ChatPlaygroundView: View {
 }
 
 /// メッセージの一覧（新しいメッセージに自動でスクロール）
+///
+/// 型チェックを軽くするため、スクロール制御と中身を別の View に分けています。
 private struct ChatMessageList: View {
     let model: ModelDescriptor
     @ObservedObject var session: ChatSession
     let retry: () -> Void
 
-    @EnvironmentObject private var settings: AppSettings
-    @EnvironmentObject private var store: ModelStore
-
     var body: some View {
-        ScrollViewReader { proxy in
+        ScrollViewReader { (proxy: ScrollViewProxy) in
             ScrollView {
-                LazyVStack(alignment: .leading, spacing: 14) {
-                    if session.turns.isEmpty {
-                        ChatEmptyState(model: model) { prompt in session.draft = prompt }
-                    }
-                    ForEach(session.turns) { turn in
-                        MessageBubble(
-                            turn: turn,
-                            liveContent: turn.state == .streaming ? session.liveContent : nil,
-                            liveReasoning: turn.state == .streaming ? session.liveReasoning : nil,
-                            rates: settings.showYen ? store.exchangeRates : nil
-                        )
-                        .id(turn.id)
-                    }
-                    if let error = session.lastError {
-                        ErrorCardView(error: error, retry: retry, dismiss: { session.dismissError() })
-                            .id("error")
-                    }
-                    Color.clear
-                        .frame(height: 1)
-                        .id("bottom")
-                }
-                .padding()
+                ChatMessageStack(model: model, session: session, retry: retry)
             }
             .scrollDismissesKeyboard(.interactively)
             .defaultScrollAnchor(.bottom)
@@ -107,7 +85,52 @@ private struct ChatMessageList: View {
     }
 
     private func scrollToBottom(_ proxy: ScrollViewProxy) {
-        proxy.scrollTo("bottom", anchor: .bottom)
+        proxy.scrollTo(ChatMessageStack.bottomID, anchor: .bottom)
+    }
+}
+
+/// メッセージを縦に並べた中身
+private struct ChatMessageStack: View {
+    static let bottomID = "bottom"
+
+    let model: ModelDescriptor
+    @ObservedObject var session: ChatSession
+    let retry: () -> Void
+
+    @EnvironmentObject private var settings: AppSettings
+    @EnvironmentObject private var store: ModelStore
+
+    var body: some View {
+        LazyVStack(alignment: .leading, spacing: 14) {
+            if session.turns.isEmpty {
+                ChatEmptyState(model: model) { prompt in session.draft = prompt }
+            }
+            ForEach(session.turns) { turn in
+                bubble(for: turn)
+            }
+            if let error = session.lastError {
+                ErrorCardView(error: error, retry: retry, dismiss: { session.dismissError() })
+            }
+            Color.clear
+                .frame(height: 1)
+                .id(Self.bottomID)
+        }
+        .padding()
+    }
+
+    private var rates: ExchangeRates? {
+        settings.showYen ? store.exchangeRates : nil
+    }
+
+    private func bubble(for turn: ChatTurn) -> some View {
+        let isStreaming: Bool = turn.state == .streaming
+        let bubble = MessageBubble(
+            turn: turn,
+            liveContent: isStreaming ? session.liveContent : nil,
+            liveReasoning: isStreaming ? session.liveReasoning : nil,
+            rates: rates
+        )
+        return bubble.equatable().id(turn.id)
     }
 }
 

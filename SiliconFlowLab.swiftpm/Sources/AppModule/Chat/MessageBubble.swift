@@ -2,13 +2,19 @@ import SwiftUI
 import SiliconFlowKit
 
 /// 会話の 1 メッセージ
-@MainActor
-struct MessageBubble: View {
+///
+/// Equatable にしているのは、生成中に画面が頻繁に更新されても、
+/// 内容の変わっていない過去のメッセージ（Markdown の整形を含む）を描き直さないためです。
+struct MessageBubble: View, Equatable {
     let turn: ChatTurn
     /// 生成中の文字（生成中のメッセージだけ）
     let liveContent: String?
     let liveReasoning: String?
     let rates: ExchangeRates?
+
+    static func == (lhs: MessageBubble, rhs: MessageBubble) -> Bool {
+        lhs.turn == rhs.turn && lhs.liveContent == rhs.liveContent && lhs.liveReasoning == rhs.liveReasoning && lhs.rates == rhs.rates
+    }
 
     var body: some View {
         switch turn.role {
