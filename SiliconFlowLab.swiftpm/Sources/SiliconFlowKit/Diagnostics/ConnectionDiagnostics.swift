@@ -177,6 +177,11 @@ public enum RegionDetector {
     public struct Result: Sendable, Equatable {
         public var region: APIRegion
         public var userInfo: UserInfo
+
+        public init(region: APIRegion, userInfo: UserInfo) {
+            self.region = region
+            self.userInfo = userInfo
+        }
     }
 
     /// 両方のリージョンで `GET /user/info` を試し、認証できた方を返します（優先リージョンを先に判定）。
