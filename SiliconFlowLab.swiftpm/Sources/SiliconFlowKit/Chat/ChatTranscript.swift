@@ -18,6 +18,8 @@ public struct ChatTurn: Identifiable, Codable, Sendable, Equatable {
     public var createdAt: Date
     public var state: State
     public var usage: Usage?
+    /// usage が API から返らず、文字数から見積もった値か
+    public var usageIsEstimated: Bool?
     public var metrics: GenerationMetrics?
     public var finishReason: String?
     public var cost: Money?

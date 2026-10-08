@@ -48,13 +48,15 @@ STATUS=$?
 set -e
 END=$(date +%s)
 
-# エラーは GitHub の注釈として表示
-grep -E "error:" "$LOGS/build.log" | sort -u | head -50 | while IFS= read -r line; do
-  echo "::error::${line#$ROOT/}"
-done
+# エラーは GitHub の注釈として表示（grep が 0 件でもスクリプトを止めない）
+{ grep -E "error:" "$LOGS/build.log" || true; } | sort -u | head -50 > "$LOGS/errors.txt"
+while IFS= read -r line; do
+  echo "::error::${line#"$ROOT"/}"
+done < "$LOGS/errors.txt"
 
 echo "::group::型チェックが遅い箇所 (>${SLOW_MS}ms)"
-grep -E "warning: .*(took [0-9]+ms to type-check|type-checking)" "$LOGS/build.log" | sort -u | tee "$LOGS/slow-typecheck.txt" || true
+{ grep -E "warning: .*(took [0-9]+ms to type-check|type-checking)" "$LOGS/build.log" || true; } | sort -u > "$LOGS/slow-typecheck.txt"
+cat "$LOGS/slow-typecheck.txt"
 echo "::endgroup::"
 SLOW_COUNT=$(wc -l < "$LOGS/slow-typecheck.txt" | tr -d ' ')
 if [ "$SLOW_COUNT" != "0" ]; then
@@ -62,7 +64,7 @@ if [ "$SLOW_COUNT" != "0" ]; then
 fi
 
 echo "::group::警告"
-grep -E "warning:" "$LOGS/build.log" | grep -v "type-check" | sort -u | head -80 || true
+{ grep -E "warning:" "$LOGS/build.log" || true; } | { grep -v -e "type-check" -e "appintentsmetadataprocessor" || true; } | sort -u | head -80
 echo "::endgroup::"
 
 if [ $STATUS -ne 0 ]; then

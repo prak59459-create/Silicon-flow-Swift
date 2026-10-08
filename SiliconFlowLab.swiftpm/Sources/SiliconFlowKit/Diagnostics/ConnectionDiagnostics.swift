@@ -150,11 +150,25 @@ public struct ConnectionDiagnostics: Sendable {
 
     /// 診断用の無料チャットモデルを選びます（小さく速いものを優先）。
     public static func preferredTestModel(from models: [ModelDescriptor]) -> String? {
-        let candidates = models.filter { $0.category == .chat && $0.isListedByAPI && !$0.isPro }
-        let free = candidates.filter(\.isFree).sorted { ($0.parameters?.totalB ?? 999) < ($1.parameters?.totalB ?? 999) }
+        let candidates: [ModelDescriptor] = models.filter(isTestCandidate)
+        let free: [ModelDescriptor] = candidates.filter(\.isFree).sorted(by: isSmaller)
         if let pick = free.first { return pick.id }
-        let known = ["Qwen/Qwen3-8B", "Qwen/Qwen2.5-7B-Instruct", "THUDM/GLM-4-9B-0414", "THUDM/glm-4-9b-chat"]
-        return known.first { id in candidates.contains { $0.id == id } }
+        let known: [String] = ["Qwen/Qwen3-8B", "Qwen/Qwen2.5-7B-Instruct", "THUDM/GLM-4-9B-0414", "THUDM/glm-4-9b-chat"]
+        let available = Set(candidates.map(\.id))
+        return known.first { available.contains($0) }
+    }
+
+    // 型推論の負荷を下げるため、クロージャではなく型の明示された関数にしています
+    private static func isTestCandidate(_ model: ModelDescriptor) -> Bool {
+        model.category == .chat && model.isListedByAPI && !model.isPro
+    }
+
+    private static func sizeForSorting(_ model: ModelDescriptor) -> Double {
+        model.parameters?.totalB ?? Double.greatestFiniteMagnitude
+    }
+
+    private static func isSmaller(_ lhs: ModelDescriptor, _ rhs: ModelDescriptor) -> Bool {
+        sizeForSorting(lhs) < sizeForSorting(rhs)
     }
 }
 
