@@ -317,6 +317,9 @@ final class ChatSupportTests: XCTestCase {
             .code(language: nil, code: "raw\n", isClosed: false),
         ])
         XCTAssertEqual(MarkdownBlockParser.parse(""), [])
+        XCTAssertEqual(MarkdownBlockParser.inlineFriendly("## 見出し\n- 項目\n  * 入れ子\n普通の文\n---"), "**見出し**\n• 項目\n  • 入れ子\n普通の文\n──────────")
+        XCTAssertEqual(MarkdownBlockParser.inlineFriendly("#hashtag"), "**hashtag**")
+        XCTAssertEqual(MarkdownBlockParser.inlineFriendly("2 * 3 = 6"), "2 * 3 = 6")
         XCTAssertEqual(MarkdownBlockParser.parse("```\n````"), [.code(language: nil, code: "", isClosed: true)])
     }
 

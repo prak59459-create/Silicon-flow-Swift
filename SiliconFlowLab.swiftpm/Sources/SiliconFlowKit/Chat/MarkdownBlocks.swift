@@ -49,6 +49,25 @@ public enum MarkdownBlockParser {
         return blocks
     }
 
+    /// インライン Markdown 表示用の前処理。見出しを太字に、箇条書きを「•」にします
+    /// （SwiftUI の Text はインライン記法しか描画できないため）。
+    public static func inlineFriendly(_ text: String) -> String {
+        text.split(separator: "\n", omittingEmptySubsequences: false).map { rawLine -> String in
+            let line = String(rawLine)
+            let trimmed = line.trimmingCharacters(in: .whitespaces)
+            let indent = String(line.prefix { $0 == " " })
+            if trimmed.hasPrefix("#") {
+                let title = trimmed.drop { $0 == "#" }.trimmingCharacters(in: .whitespaces)
+                if !title.isEmpty, trimmed.count - title.count <= 7 { return "**\(title)**" }
+            }
+            for marker in ["- ", "* ", "+ "] where trimmed.hasPrefix(marker) {
+                return indent + "• " + String(trimmed.dropFirst(marker.count))
+            }
+            if trimmed == "---" || trimmed == "***" { return "──────────" }
+            return line
+        }.joined(separator: "\n")
+    }
+
     private static func openingFence(_ line: String) -> Character? {
         if line.hasPrefix("```") { return "`" }
         if line.hasPrefix("~~~") { return "~" }

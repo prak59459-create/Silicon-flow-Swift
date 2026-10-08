@@ -68,6 +68,12 @@ final class ModelStore: ObservableObject {
         }
     }
 
+    /// 読み込みが終わるまで待つ版（引っ張って更新用）
+    func reloadAndWait(settings: AppSettings) async {
+        reload(settings: settings)
+        await loadTask?.value
+    }
+
     private func performLoad(client: SiliconFlowClient, region: APIRegion, options: CatalogSourceOptions, wantsYen: Bool) async {
         if loadedRegion != region {
             loadedRegion = region

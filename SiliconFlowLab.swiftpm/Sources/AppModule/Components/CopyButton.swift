@@ -1,6 +1,7 @@
 import SwiftUI
 import UIKit
 
+@MainActor
 enum Clipboard {
     static func copy(_ text: String) {
         UIPasteboard.general.string = text
@@ -8,6 +9,7 @@ enum Clipboard {
 }
 
 /// 押すとクリップボードにコピーし、少しの間「コピーしました」と表示するボタン
+@MainActor
 struct CopyButton: View {
     let text: String
     var title: String = "コピー"
@@ -16,7 +18,9 @@ struct CopyButton: View {
     @State private var copied = false
 
     var body: some View {
-        Button(action: copy) {
+        Button {
+            copy()
+        } label: {
             if showsTitle {
                 Label(copied ? "コピーしました" : title, systemImage: copied ? "checkmark" : "doc.on.doc")
             } else {

@@ -30,11 +30,11 @@ struct ErrorCardView: View {
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(tint.opacity(0.08)))
-        .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(tint.opacity(0.35)))
+        .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(accent.opacity(0.08)))
+        .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).strokeBorder(accent.opacity(0.35)))
     }
 
-    private var tint: Color {
+    private var accent: Color {
         switch diagnosis.severity {
         case .info: return .blue
         case .warning: return .orange
@@ -53,7 +53,7 @@ struct ErrorCardView: View {
     private var header: some View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: icon)
-                .foregroundStyle(tint)
+                .foregroundStyle(accent)
                 .font(.title3)
             Text(diagnosis.title)
                 .font(.headline)
@@ -92,7 +92,7 @@ struct ErrorCardView: View {
                         .font(.subheadline)
                 }
                 .buttonStyle(.bordered)
-                .tint(action == .retry ? tint : .accentColor)
+                .tint(action == .retry ? accent : Color.accentColor)
             }
         }
     }
