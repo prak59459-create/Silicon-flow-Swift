@@ -1,0 +1,10 @@
+.build/
+.swiftpm/
+*.xcodeproj/
+xcuserdata/
+DerivedData/
+.DS_Store
+/Packages
+SiliconFlowLab.swiftpm/.swiftpm/
+SiliconFlowLab.swiftpm/.build/
+dist/

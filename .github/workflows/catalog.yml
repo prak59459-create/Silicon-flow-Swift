@@ -1,0 +1,47 @@
+name: モデルカタログの自動更新
+
+# 毎日、SiliconFlow 公式サイト・models.dev・Hugging Face から価格とパラメータ数を取り直し、
+# 変わっていれば catalog/siliconflow-catalog.json とアプリ同梱データを更新してコミットします。
+# アプリは起動時にこの JSON を取得するので、アプリを入れ直さなくても最新の価格が表示されます。
+
+on:
+  schedule:
+    - cron: "17 21 * * *" # 毎日 06:17 (JST)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: catalog-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    container: swift:6.3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Trust workspace
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Build catalog from the web
+        run: |
+          swift run -c release catalog-builder \
+            --out catalog/siliconflow-catalog.json \
+            --swift-out SiliconFlowLab.swiftpm/Sources/SiliconFlowKit/Catalog/BundledCatalogSnapshot.swift
+      - name: Verify parsers still work against live sites
+        run: swift test --filter "LiveWebSourceTests|CatalogMergeTests"
+        env:
+          LIVE_WEB_TESTS: "1"
+      - name: Commit if changed
+        run: |
+          git add catalog/siliconflow-catalog.json SiliconFlowLab.swiftpm/Sources/SiliconFlowKit/Catalog/BundledCatalogSnapshot.swift
+          if git diff --cached --quiet; then
+            echo "カタログに変更はありません"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update model catalog ($(date -u +%Y-%m-%d))"
+          git push
