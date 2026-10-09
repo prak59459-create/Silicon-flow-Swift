@@ -64,7 +64,7 @@ public struct CatalogEntry: Codable, Hashable, Sendable, Identifiable {
     public var capabilities: [ModelCapability]?
     public var tags: [String]?
     public var isFree: Bool?
-    /// 贈与残高（無料クレジット）では使えず、チャージ残高が必要
+    /// 代金券（旧・贈与残高）では支払えず、チャージ残高が必要
     public var requiresChargedBalance: Bool?
     /// 実名認証が必要
     public var requiresRealName: Bool?
