@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-10-08T23:34:34Z",
+  "generatedAt" : "2026-10-10T00:56:38Z",
   "regions" : {
     "cn" : {
       "entries" : [
@@ -2787,6 +2787,41 @@
           ],
           "totalParamsB" : 744,
           "unit" : "perMillionTokens"
+        },
+        {
+          "activeParamsB" : 18,
+          "capabilities" : [
+            "vision",
+            "tools",
+            "jsonMode",
+            "reasoning"
+          ],
+          "category" : "vision",
+          "contextLength" : 1048576,
+          "currency" : "CNY",
+          "displayName" : "GLM-5.3-Flash",
+          "id" : "zai-org/GLM-5.3-Flash",
+          "inputPrice" : 0,
+          "isFree" : true,
+          "outputPrice" : 0,
+          "paramsSource" : "SiliconFlow公式サイト",
+          "priceSource" : "SiliconFlow公式サイト",
+          "releaseDate" : "2026-08-25",
+          "requiresChargedBalance" : false,
+          "requiresRealName" : false,
+          "summary" : "GLM-5.3-Flash 是智谱推出的原生多模态模型，总参数 320B、激活参数 18B，采用稀疏注意力与线性注意力混合架构，支持 1M 上下文，擅长视觉理解、编程、深度推理与复杂智能体任务",
+          "tags" : [
+            "Tools",
+            "视觉",
+            "320B",
+            "1M",
+            "推理模型",
+            "MoE",
+            "Coder",
+            "智能体"
+          ],
+          "totalParamsB" : 320,
+          "unit" : "perMillionTokens"
         }
       ]
     },
@@ -4014,7 +4049,7 @@
   },
   "schemaVersion" : 1,
   "sources" : [
-    "SiliconFlow公式サイト: 90 models",
+    "SiliconFlow公式サイト: 91 models",
     "models.dev: cn 44 / global 57 models",
     "Hugging Face: 29 models enriched"
   ]
