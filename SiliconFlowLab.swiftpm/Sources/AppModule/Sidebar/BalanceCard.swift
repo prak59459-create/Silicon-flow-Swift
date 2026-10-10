@@ -1,7 +1,10 @@
 import SwiftUI
 import SiliconFlowKit
 
-/// 接続中のリージョンと残高
+/// 接続中のリージョンと残高（参考）
+///
+/// 残高照会 API（GET /user/info）は中国版で 2026-08-14 に提供終了したため、
+/// 取れないときはエラーではなく、コンソールで確認する案内を出します。
 struct BalanceCard: View {
     @EnvironmentObject private var settings: AppSettings
     @EnvironmentObject private var store: ModelStore
@@ -28,17 +31,44 @@ struct BalanceCard: View {
 
     @ViewBuilder
     private var balance: some View {
-        if let info = store.userInfo, let total = info.effectiveTotal {
-            BalanceAmountView(info: info, total: total, currency: settings.region.currency, rates: settings.showYen ? store.exchangeRates : nil)
-        } else if let error = store.balanceError {
-            Label(error.diagnosis.title, systemImage: "exclamationmark.triangle")
-                .font(.caption)
-                .foregroundStyle(.orange)
-                .lineLimit(3)
-        } else {
-            Text("残高を確認中…")
+        switch store.balance {
+        case .available(let info)?:
+            if let total = info.effectiveTotal {
+                BalanceAmountView(info: info, total: total, currency: settings.region.currency, rates: settings.showYen ? store.exchangeRates : nil)
+            } else {
+                ConsoleBalanceLink(message: "残高の情報がありませんでした", region: settings.region)
+            }
+        case .unsupported?:
+            ConsoleBalanceLink(message: "残高は API で取得できなくなりました", region: settings.region)
+        case .failed(let error)?:
+            ConsoleBalanceLink(message: "残高を取得できませんでした（\(error.diagnosis.title)）", region: settings.region)
+        case nil:
+            Text(store.isLoadingBalance ? "残高を確認中…" : "残高はまだ確認していません")
                 .font(.caption)
                 .foregroundStyle(.secondary)
+        }
+    }
+}
+
+/// 残高を API で取れないときの案内（コンソールを開くボタン付き）
+private struct ConsoleBalanceLink: View {
+    let message: String
+    let region: APIRegion
+    @Environment(\.openURL) private var openURL
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(message)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .lineLimit(3)
+            Button {
+                openURL(region.consoleURL)
+            } label: {
+                Label("残高・代金券をコンソールで見る", systemImage: "safari")
+                    .font(.caption)
+            }
+            .buttonStyle(.borderless)
         }
     }
 }
@@ -58,10 +88,15 @@ private struct BalanceAmountView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
-            if let charge = info.chargeBalance, let gift = info.balance {
-                Text("チャージ \(currency.format(charge)) ・ 無料枠 \(currency.format(gift))")
+            if let charge = info.chargeBalance {
+                Text("うちチャージ \(currency.format(charge))・代金券は含まない場合があります")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
+            }
+            if total < 0 {
+                Text("残高がマイナス（未払い）です。チャージするまで使えない場合があります")
+                    .font(.caption2)
+                    .foregroundStyle(.orange)
             }
             if !info.isNormalStatus {
                 Text("アカウントの状態: \(info.status ?? "")")

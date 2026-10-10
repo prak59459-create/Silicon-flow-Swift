@@ -16,14 +16,30 @@ final class LiveAPITests: XCTestCase {
         return SiliconFlowClient(configuration: ClientConfiguration(region: region, apiKey: key, requestTimeout: 60))
     }
 
-    func testLiveUserInfoAndModels() async throws {
+    func testLiveKeyCheckAndModels() async throws {
         let client = try liveClient()
-        let info = try await client.userInfo()
-        XCTAssertNotNil(info.id)
         let models = try await client.listModels()
         XCTAssertFalse(models.isEmpty)
         let chat = try await client.listModels(.subType("chat"))
         XCTAssertFalse(chat.isEmpty)
+        let check = await RegionDetector.check(apiKey: client.configuration.apiKey, region: client.region)
+        guard case .success(let result) = check else { return XCTFail("キーの確認に失敗: \(check)") }
+        XCTAssertEqual(result.region, client.region)
+    }
+
+    /// 残高 API は提供終了している場合があります（中国版は 2026-08-14 に停止）。
+    /// どちらの結果でも、キーの問題として扱われないことを確かめます。
+    func testLiveBalanceLookupNeverLooksLikeAKeyProblem() async throws {
+        let client = try liveClient()
+        switch await client.lookUpBalance() {
+        case .available(let info):
+            print("残高 API: 利用可能（合計 \(info.effectiveTotal.map { String($0) } ?? "不明")）")
+        case .unsupported:
+            print("残高 API: 提供終了（HTTP 410 / コード 20092 など）")
+        case .failed(let error):
+            XCTAssertNotEqual(error.kind, .invalidAPIKey, "有効なキーなのに無効と判定された: \(error.technicalReport)")
+            print("残高 API: 取得失敗 \(error.kind)")
+        }
     }
 
     func testLiveStreamingChatWithFreeModel() async throws {
@@ -42,7 +58,7 @@ final class LiveAPITests: XCTestCase {
     func testLiveInvalidKeyIsDiagnosed() async throws {
         _ = try liveClient()
         let client = SiliconFlowClient(configuration: ClientConfiguration(region: .china, apiKey: "sk-invalidinvalidinvalidinvalid"))
-        let error = await assertThrowsSiliconFlowError { try await client.userInfo() }
+        let error = await assertThrowsSiliconFlowError { try await client.listModels() }
         XCTAssertEqual(error?.kind, .invalidAPIKey)
     }
 }

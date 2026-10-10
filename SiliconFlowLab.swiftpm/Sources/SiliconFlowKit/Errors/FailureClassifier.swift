@@ -11,6 +11,8 @@ public enum FailureClassifier {
         public static let invalidToken = 30014
         public static let insufficientBalance = 30001
         public static let overloaded = 50505
+        /// API の提供終了（例: 2026-08-14 に停止した `GET /user/info` は HTTP 410 とこのコードを返します）
+        public static let endpointRetired = 20092
     }
 
     public static func classify(status: Int?, body: APIErrorBody, endpoint: String?) -> FailureKind {
@@ -20,6 +22,10 @@ public enum FailureClassifier {
         // まずメッセージ・コードで判定できるもの（ステータスより具体的）
         if body.code == KnownCode.invalidToken || matches(message, ["token is invalid", "invalid token", "invalid api key", "incorrect api key", "unauthorized", "api key is invalid", "令牌无效"]) {
             return .invalidAPIKey
+        }
+        // 「deprecated」はモデルの提供終了にも使われるので、API の終了はその前に見分けます
+        if isRetiredEndpoint(code: body.code, status: status, message: message) {
+            return .endpointRetired
         }
         if body.code == KnownCode.modelNotFound || matches(message, ["model does not exist", "model not exist", "model not found", "模型不存在", "no such model"]) || codeText == "model_not_found" {
             return .modelNotFound
@@ -70,6 +76,9 @@ public enum FailureClassifier {
             return endpointLooksModelSpecific(endpoint) ? .modelNotFound : .endpointNotFound
         case 408:
             return .timedOut
+        case 410:
+            // モデルに触れた 410 だけがここに来ます（それ以外は API の提供終了として判定済み）
+            return .modelDeprecated
         case 413:
             return .payloadTooLarge
         case 429:
@@ -128,6 +137,18 @@ public enum FailureClassifier {
             return dimension
         }
         return nil
+    }
+
+    /// API そのものが提供終了したことを示す応答か
+    ///
+    /// 実例: HTTP 410 `{"code":20092,"message":"This endpoint is deprecated and is no longer available.","data":null}`
+    static func isRetiredEndpoint(code: Int?, status: Int?, message: String) -> Bool {
+        if code == KnownCode.endpointRetired { return true }
+        let mentionsModel = matches(message, ["model", "模型"])
+        if status == 410 { return !mentionsModel }
+        let saysRetired = matches(message, ["deprecated", "no longer available", "has been removed", "停止服务", "不再可用", "已下线", "废弃"])
+        let mentionsEndpoint = matches(message, ["endpoint", "api ", "接口"])
+        return saysRetired && mentionsEndpoint && !mentionsModel
     }
 
     static func matches(_ message: String, _ needles: [String]) -> Bool {
