@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-10-10T00:56:38Z",
+  "generatedAt" : "2026-10-15T23:43:07Z",
   "regions" : {
     "cn" : {
       "entries" : [
@@ -2376,6 +2376,40 @@
           "unit" : "perMillionTokens"
         },
         {
+          "capabilities" : [
+            "vision",
+            "tools",
+            "jsonMode",
+            "reasoning"
+          ],
+          "category" : "vision",
+          "contextLength" : 1048576,
+          "currency" : "CNY",
+          "displayName" : "DeepSeek-V4.1-Flash",
+          "id" : "deepseek-ai/DeepSeek-V4.1-Flash",
+          "inputPrice" : 2,
+          "isFree" : false,
+          "outputPrice" : 8,
+          "paramsSource" : "SiliconFlow公式サイト",
+          "priceSource" : "SiliconFlow公式サイト",
+          "releaseDate" : "2026-09-09",
+          "requiresChargedBalance" : false,
+          "requiresRealName" : false,
+          "summary" : "DeepSeek-V4.1-Flash 是 DeepSeek 推出的多模态混合专家模型，原生支持图像与文本理解，擅长编程、深度推理和智能体任务",
+          "tags" : [
+            "Tools",
+            "视觉",
+            "552B",
+            "1M",
+            "MoE",
+            "推理模型",
+            "Coder",
+            "智能体"
+          ],
+          "totalParamsB" : 552,
+          "unit" : "perMillionTokens"
+        },
+        {
           "category" : "textToSpeech",
           "currency" : "CNY",
           "displayName" : "MOSS-TTSD-v0.5",
@@ -4049,7 +4083,7 @@
   },
   "schemaVersion" : 1,
   "sources" : [
-    "SiliconFlow公式サイト: 91 models",
+    "SiliconFlow公式サイト: 92 models",
     "models.dev: cn 44 / global 57 models",
     "Hugging Face: 29 models enriched"
   ]
