@@ -2,7 +2,7 @@ import Foundation
 
 /// 再試行のルール。
 ///
-/// 料金が二重にかからないよう、既定では GET（モデル一覧・残高など）だけを自動再試行します。
+/// 料金が二重にかからないよう、既定では GET（モデル一覧など）だけを自動再試行します。
 /// チャット等の POST はユーザーが「再試行」を押したときだけ送り直します。
 public struct RetryPolicy: Sendable, Equatable {
     public var maxRetries: Int

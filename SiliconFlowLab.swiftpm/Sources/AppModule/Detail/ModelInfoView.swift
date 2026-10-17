@@ -83,7 +83,7 @@ private struct PriceSection: View {
                 InfoRow(title: row.0, value: row.1)
             }
             if model.catalog?.requiresChargedBalance == true {
-                Label("無料クレジット（贈与残高）では使えず、チャージした残高が必要です", systemImage: "creditcard")
+                Label("代金券（旧・贈与残高）では支払えず、チャージした残高が必要です", systemImage: "creditcard")
                     .font(.caption)
                     .foregroundStyle(.orange)
             }

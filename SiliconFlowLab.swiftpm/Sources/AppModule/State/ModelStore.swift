@@ -1,7 +1,7 @@
 import Foundation
 import SiliconFlowKit
 
-/// モデル一覧・カタログ・残高・為替をまとめて管理します。
+/// モデル一覧・カタログ・残高（参考）・為替をまとめて管理します。
 @MainActor
 final class ModelStore: ObservableObject {
     enum LoadState: Equatable {
@@ -17,8 +17,8 @@ final class ModelStore: ObservableObject {
     @Published private(set) var isUsingCatalogFallback = false
     @Published private(set) var catalog: CatalogSnapshot
     @Published private(set) var isRefreshingCatalog = false
-    @Published private(set) var userInfo: UserInfo?
-    @Published private(set) var balanceError: SiliconFlowError?
+    /// 残高（参考）。nil はまだ確認していない状態
+    @Published private(set) var balance: BalanceLookup?
     @Published private(set) var isLoadingBalance = false
     @Published private(set) var exchangeRates: ExchangeRates?
     @Published private(set) var huggingFace: [String: HuggingFaceClient.ModelInfo] = [:]
@@ -32,6 +32,8 @@ final class ModelStore: ObservableObject {
     private var huggingFaceInFlight = Set<String>()
     private let catalogService = CatalogService()
     private let cache = DiskCache.default()
+    /// 残高 API が使えないと分かった接続先（毎回むだに呼ばないため）
+    private var balanceSupport: BalanceSupportRecord
 
     init() {
         let initial = CatalogSnapshot(region: .china, entries: BundledCatalog.document?.entries(for: .china) ?? [], statuses: [], updatedAt: nil, isBundledOnly: true)
@@ -39,7 +41,10 @@ final class ModelStore: ObservableObject {
         catalogIndex = CatalogIndex(entries: initial.entries)
         huggingFace = cache.load([String: HuggingFaceClient.ModelInfo].self, name: "huggingface") ?? [:]
         exchangeRates = cache.load(ExchangeRates.self, name: "exchange-rates")
+        balanceSupport = cache.load(BalanceSupportRecord.self, name: Self.balanceSupportName) ?? BalanceSupportRecord()
     }
+
+    private static let balanceSupportName = "balance-support"
 
     var isLoading: Bool { state == .loading }
 
@@ -79,7 +84,7 @@ final class ModelStore: ObservableObject {
             loadedRegion = region
             remoteModels = []
             apiCategories = [:]
-            userInfo = nil
+            balance = nil
         }
         apply(await catalogService.current(region: region))
         async let modelsResult = Self.fetchModels(client)
@@ -124,19 +129,26 @@ final class ModelStore: ObservableObject {
         cache.clear()
         huggingFace = [:]
         exchangeRates = nil
+        balanceSupport = BalanceSupportRecord()
         if let region = loadedRegion { apply(await catalogService.current(region: region)) }
         rebuild()
     }
 
+    /// 残高を参考として取得します。残高 API は提供終了している場合があり、失敗しても他の機能には影響させません。
     func refreshBalance(client: SiliconFlowClient) async {
+        let baseURL = client.configuration.baseURL
+        guard balanceSupport.shouldLookUp(baseURL: baseURL) else {
+            balance = .unsupported
+            return
+        }
         isLoadingBalance = true
         defer { isLoadingBalance = false }
-        do {
-            userInfo = try await client.userInfo()
-            balanceError = nil
-        } catch {
-            let wrapped = SiliconFlowError.wrap(error, region: client.region)
-            if !wrapped.isCancellation { balanceError = wrapped }
+        let result = await client.lookUpBalance()
+        if case .failed(let error) = result, error.isCancellation { return }
+        guard !Task.isCancelled else { return }
+        balance = result
+        if balanceSupport.record(result, baseURL: baseURL) {
+            cache.save(balanceSupport, name: Self.balanceSupportName)
         }
     }
 

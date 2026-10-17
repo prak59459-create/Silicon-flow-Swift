@@ -80,7 +80,7 @@ enum KeyVerificationState {
 /// キーを確認して保存する処理（初期設定と設定画面で共通）
 @MainActor
 enum KeyVerifier {
-    /// 両リージョンで認証を試し、通った方に保存します。
+    /// 両リージョンで認証を試し（`GET /models`）、通った方に保存します。
     static func verifyAndSave(_ rawKey: String, preferred: APIRegion, settings: AppSettings) async -> KeyVerificationState {
         let key = APIKeyValidator.sanitize(rawKey)
         let validation = APIKeyValidator.validate(key)
@@ -106,9 +106,12 @@ enum KeyVerifier {
         return saved
     }
 
-    /// 通信の問題（キーの問題ではない）か
-    static func isNetworkProblem(_ error: SiliconFlowError) -> Bool {
-        let kinds: Set<FailureKind> = [.offline, .timedOut, .dnsFailure, .connectionFailed, .tlsFailure, .unexpectedResponse, .serverError, .badGateway, .overloaded, .gatewayTimeout]
-        return kinds.contains(error.kind)
+    /// 確認できなかったが、キーの問題とは言えない失敗か（このときは確認せずに保存できるようにします）
+    ///
+    /// 通信の問題・サーバーの不調・API の仕様変更などでキーを保存できなくならないよう、
+    /// 「キーが無効・形式が違う」とはっきり分かったとき以外は保存を許します。
+    static func allowsSavingWithoutVerification(_ error: SiliconFlowError) -> Bool {
+        let keyProblems: Set<FailureKind> = [.invalidAPIKey, .missingAPIKey, .malformedAPIKey, .cancelled]
+        return !keyProblems.contains(error.kind)
     }
 }

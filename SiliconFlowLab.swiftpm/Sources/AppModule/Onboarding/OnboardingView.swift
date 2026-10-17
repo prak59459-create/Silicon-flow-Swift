@@ -16,7 +16,7 @@ struct OnboardingView: View {
                 keyCard
                 if case .failure(let error) = state {
                     ErrorCardView(error: error, retry: { connect() })
-                    if KeyVerifier.isNetworkProblem(error) {
+                    if KeyVerifier.allowsSavingWithoutVerification(error) {
                         Button("確認せずに保存して始める") {
                             _ = KeyVerifier.saveWithoutVerification(draftKey, region: preferredRegion, settings: settings)
                         }

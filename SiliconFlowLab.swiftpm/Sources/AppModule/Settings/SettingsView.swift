@@ -96,9 +96,12 @@ private struct APIKeySection: View {
         case .success(let result):
             Label("\(result.region.displayName)で認証できました。保存しました。", systemImage: "checkmark.circle.fill")
                 .foregroundStyle(.green)
+            if let restriction = result.restriction {
+                ErrorCardView(error: restriction, compact: true)
+            }
         case .failure(let error):
             ErrorCardView(error: error, compact: true, retry: { verify() })
-            if KeyVerifier.isNetworkProblem(error) {
+            if KeyVerifier.allowsSavingWithoutVerification(error) {
                 Button("確認せずに保存する") {
                     if KeyVerifier.saveWithoutVerification(draftKey, region: settings.region, settings: settings) {
                         draftKey = ""

@@ -96,10 +96,11 @@ final class ClientRequestTests: XCTestCase {
     }
 
     func testOtherEndpointsEncodeSnakeCase() throws {
-        let image = try XCTUnwrap(JSONValue.parse(try JSONEncoder().encode(ImageGenerationRequest(model: "m", prompt: "p", negativePrompt: "", imageSize: "1024x1024", batchSize: 1, seed: 7, numInferenceSteps: 20, guidanceScale: 7.5))))
+        let image = try XCTUnwrap(JSONValue.parse(try JSONEncoder().encode(ImageGenerationRequest(model: "m", prompt: "p", negativePrompt: "", imageSize: "1024x1024", seed: 7, numInferenceSteps: 20, guidanceScale: 7.5))))
         XCTAssertEqual(image["image_size"]?.stringValue, "1024x1024")
         XCTAssertEqual(image["num_inference_steps"]?.intValue, 20)
         XCTAssertNil(image["negative_prompt"], "空のネガティブプロンプトは送らない")
+        XCTAssertNil(image["batch_size"], "batch_size は 2026-09-30 に廃止された")
         let rerank = try XCTUnwrap(JSONValue.parse(try JSONEncoder().encode(RerankRequest(model: "m", query: "q", documents: ["a"], topN: 1))))
         XCTAssertEqual(rerank["top_n"]?.intValue, 1)
         XCTAssertEqual(rerank["return_documents"], .bool(true))

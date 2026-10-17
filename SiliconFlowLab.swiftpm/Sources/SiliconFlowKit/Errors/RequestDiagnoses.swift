@@ -41,6 +41,36 @@ enum RequestDiagnoses {
         }
     }
 
+    /// API そのものが提供終了したとき（キーや設定の問題ではないことをはっきり伝えます）
+    static func retiredEndpoint(_ context: DiagnosisContext) -> ErrorDiagnosis {
+        if context.isBalanceEndpoint {
+            return ErrorDiagnosis(
+                kind: .endpointRetired,
+                title: "残高照会 API は提供終了しました\(context.statusLabel)",
+                cause: "SiliconFlow は残高照会用の API（GET /user/info）の提供を終了しました（中国版は 2026 年 8 月 14 日に停止）。API キーや設定の問題ではなく、モデル一覧・チャットなどはこれまでどおり使えます。\(context.quotedServerMessage)",
+                fixes: [
+                    context.region == .china
+                        ? "残高と代金券は、コンソール（cloud.siliconflow.cn）の「余额充值」→「代金券」で確認できます。"
+                        : "残高とクーポンは、コンソール（cloud.siliconflow.com）にログインして確認してください。",
+                    "公式から代わりの API が公開されたら、アプリの更新で残高を表示できるようにします。",
+                ],
+                actions: [context.openConsole, context.openReleaseNotes],
+                severity: .info
+            )
+        }
+        return ErrorDiagnosis(
+            kind: .endpointRetired,
+            title: "この API は提供終了しました\(context.statusLabel)",
+            cause: "\(context.endpointLabel)は SiliconFlow 側で廃止され、使えなくなりました。API キーや設定の問題ではありません。\(context.quotedServerMessage)",
+            fixes: [
+                "公式のお知らせ（更新履歴）で、代わりの API や移行方法を確認してください。",
+                "アプリを最新版に更新してください（GitHub の Releases から入手できます）。",
+            ],
+            actions: [context.openReleaseNotes],
+            severity: .warning
+        )
+    }
+
     static func badRequest(_ context: DiagnosisContext) -> ErrorDiagnosis {
         switch context.kind {
         case .contextTooLong:

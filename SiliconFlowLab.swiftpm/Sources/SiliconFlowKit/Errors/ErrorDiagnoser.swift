@@ -11,6 +11,8 @@ public enum ErrorDiagnoser {
             return AccountDiagnoses.permission(context)
         case .modelNotFound, .modelDeprecated, .endpointNotFound:
             return RequestDiagnoses.notFound(context)
+        case .endpointRetired:
+            return RequestDiagnoses.retiredEndpoint(context)
         case .invalidRequest, .contextTooLong, .unsupportedParameter, .payloadTooLarge, .contentFiltered:
             return RequestDiagnoses.badRequest(context)
         case .rateLimited, .serverError, .badGateway, .overloaded, .gatewayTimeout:
@@ -67,6 +69,21 @@ struct DiagnosisContext {
 
     var openErrorDocs: DiagnosisAction {
         .openURL(title: "エラーコードの説明を開く", url: region.errorDocsURL)
+    }
+
+    var openReleaseNotes: DiagnosisAction {
+        .openURL(title: "公式のお知らせを開く", url: region.releaseNotesURL)
+    }
+
+    /// 例: 「GET /user/info」
+    var endpointLabel: String {
+        guard let endpoint = error.endpoint, !endpoint.isEmpty else { return "この API" }
+        return "「\(endpoint)」"
+    }
+
+    /// 残高照会 API（`GET /user/info`）の失敗か
+    var isBalanceEndpoint: Bool {
+        (error.endpoint ?? "").contains("user/info")
     }
 
     var isChatEndpoint: Bool {

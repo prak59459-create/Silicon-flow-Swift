@@ -204,9 +204,10 @@ final class DiagnosticsTests: XCTestCase {
 
     func testZeroBalanceIsWarning() async {
         let transport = MockTransport(.json(#"{"data":{"id":"u","balance":"0","totalBalance":"0","status":"normal"}}"#))
-        let outcome = await ConnectionDiagnostics(client: makeClient(transport)).run(.authentication, testModel: nil)
+        let outcome = await ConnectionDiagnostics(client: makeClient(transport)).run(.balance, testModel: nil)
         guard case .warning(let message) = outcome else { return XCTFail("\(outcome)") }
         XCTAssertTrue(message.contains("無料モデル"))
+        XCTAssertFalse(outcome.isFailure, "残高は参考情報なので問題として数えない")
     }
 
     func testPreferredTestModel() {
@@ -228,14 +229,16 @@ final class DiagnosticsTests: XCTestCase {
     func testRegionDetectorFindsWorkingRegion() async {
         let transport = MockTransport { request, _ in
             if request.url.host == "api.siliconflow.com" {
-                return .json(#"{"code":20000,"data":{"id":"global-user","totalBalance":"5"}}"#)
+                return .json(#"{"object":"list","data":[{"id":"a/b"},{"id":"c/d"}]}"#)
             }
             return .json(#"{"code":30014,"message":"Token is invalid."}"#, status: 401)
         }
         let (result, errors) = await RegionDetector.detect(apiKey: "sk-abcdefghijklmnopqrstuvwxyz", preferred: .china, transport: transport)
         XCTAssertEqual(result?.region, .international)
-        XCTAssertEqual(result?.userInfo.id, "global-user")
+        XCTAssertEqual(result?.modelCount, 2)
+        XCTAssertNil(result?.restriction)
         XCTAssertEqual(errors[.china]?.kind, .invalidAPIKey)
+        XCTAssertTrue(transport.requests.allSatisfy { $0.url.path == "/v1/models" }, "認証の確認に残高 API は使わない")
     }
 
     func testRegionDetectorReportsBothFailures() async {

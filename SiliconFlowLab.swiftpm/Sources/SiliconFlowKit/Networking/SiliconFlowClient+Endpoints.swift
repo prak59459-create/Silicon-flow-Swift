@@ -14,10 +14,14 @@ extension SiliconFlowClient {
     }
 
     /// アカウント情報・残高（`GET /user/info`）
+    ///
+    /// 中国版では 2026-08-14 に提供終了しました（`FailureKind.endpointRetired` になります）。
+    /// キーの確認には `listModels()` を、残高の参考表示には `lookUpBalance()` を使ってください。
     public func userInfo() async throws -> UserInfo {
         let endpoint = Self.label(.get, "user/info")
         let request = try makeRequest(.get, path: "user/info")
         let (data, head) = try await send(request, endpoint: endpoint, modelID: nil, retry: retryPolicy)
+        if data.isEmpty { throw emptyResultError(data, head: head, endpoint: endpoint, modelID: nil) }
         if let info = UserInfo.parse(data) { return info }
         throw describeUndecodable(data, head: head, endpoint: endpoint, modelID: nil, decodingError: nil)
     }

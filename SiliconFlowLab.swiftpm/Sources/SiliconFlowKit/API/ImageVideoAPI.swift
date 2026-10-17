@@ -1,12 +1,13 @@
 import Foundation
 
 /// `POST /images/generations` のリクエスト
+///
+/// `batch_size` は 2026-09-30 に廃止されたので送りません（複数枚ほしいときは複数回呼びます）。
 public struct ImageGenerationRequest: Encodable, Sendable, Hashable {
     public var model: String
     public var prompt: String
     public var negativePrompt: String?
     public var imageSize: String?
-    public var batchSize: Int?
     public var seed: Int?
     public var numInferenceSteps: Int?
     public var guidanceScale: Double?
@@ -14,14 +15,13 @@ public struct ImageGenerationRequest: Encodable, Sendable, Hashable {
     public var image: String?
 
     public init(
-        model: String, prompt: String, negativePrompt: String? = nil, imageSize: String? = nil, batchSize: Int? = nil,
+        model: String, prompt: String, negativePrompt: String? = nil, imageSize: String? = nil,
         seed: Int? = nil, numInferenceSteps: Int? = nil, guidanceScale: Double? = nil, image: String? = nil
     ) {
         self.model = model
         self.prompt = prompt
         self.negativePrompt = negativePrompt
         self.imageSize = imageSize
-        self.batchSize = batchSize
         self.seed = seed
         self.numInferenceSteps = numInferenceSteps
         self.guidanceScale = guidanceScale
@@ -33,7 +33,6 @@ public struct ImageGenerationRequest: Encodable, Sendable, Hashable {
         case prompt
         case negativePrompt = "negative_prompt"
         case imageSize = "image_size"
-        case batchSize = "batch_size"
         case seed
         case numInferenceSteps = "num_inference_steps"
         case guidanceScale = "guidance_scale"
@@ -46,7 +45,6 @@ public struct ImageGenerationRequest: Encodable, Sendable, Hashable {
         try container.encode(prompt, forKey: .prompt)
         if let negativePrompt, !negativePrompt.isEmpty { try container.encode(negativePrompt, forKey: .negativePrompt) }
         try container.encodeIfPresent(imageSize, forKey: .imageSize)
-        try container.encodeIfPresent(batchSize, forKey: .batchSize)
         try container.encodeIfPresent(seed, forKey: .seed)
         try container.encodeIfPresent(numInferenceSteps, forKey: .numInferenceSteps)
         try container.encodeIfPresent(guidanceScale, forKey: .guidanceScale)

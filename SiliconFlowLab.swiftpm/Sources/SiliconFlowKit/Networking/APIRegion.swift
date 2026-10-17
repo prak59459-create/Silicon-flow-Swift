@@ -56,19 +56,27 @@ public enum APIRegion: String, CaseIterable, Codable, Sendable, Identifiable {
 
     public var docsURL: URL {
         switch self {
-        case .china: return Self.url("https://docs.siliconflow.cn/cn/userguide/introduction")
+        case .china: return Self.url("https://docs.siliconflow.cn/docs/userguide/introduction")
         case .international: return Self.url("https://docs.siliconflow.com/en/userguide/introduction")
         }
     }
 
     public var errorDocsURL: URL {
         switch self {
-        case .china: return Self.url("https://docs.siliconflow.cn/cn/faqs/error-code")
+        case .china: return Self.url("https://docs.siliconflow.cn/docs/userguide/faqs/error-code")
         case .international: return Self.url("https://docs.siliconflow.com/en/faqs/error-code")
         }
     }
 
-    /// 残高・料金の通貨
+    /// 公式のお知らせ（API・モデルの変更履歴）
+    public var releaseNotesURL: URL {
+        switch self {
+        case .china: return Self.url("https://docs.siliconflow.cn/docs/release-notes/overview")
+        case .international: return Self.url("https://docs.siliconflow.com/en/release-notes/overview")
+        }
+    }
+
+    /// 料金の通貨
     public var currency: Currency {
         switch self {
         case .china: return .cny

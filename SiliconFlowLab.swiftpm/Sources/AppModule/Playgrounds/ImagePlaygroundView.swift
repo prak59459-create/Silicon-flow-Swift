@@ -95,7 +95,7 @@ struct ImagePlaygroundView: View {
 
     private func run() {
         let client = settings.makeClient()
-        var request = ImageGenerationRequest(model: model.id, prompt: prompt, negativePrompt: negativePrompt, imageSize: imageSize, batchSize: 1, image: sourceImage)
+        var request = ImageGenerationRequest(model: model.id, prompt: prompt, negativePrompt: negativePrompt, imageSize: imageSize, image: sourceImage)
         if useAdvanced {
             request.numInferenceSteps = steps
             request.guidanceScale = guidance
@@ -133,7 +133,7 @@ private struct ImageResultView: View {
                     ResultMetric(title: "料金", value: DisplayFormat.money(cost, rates: rates, showYen: rates != nil))
                 }
             }
-            Text("画像の URL は 1 時間で無効になります。残したい画像は共有ボタンから保存してください。")
+            Text("画像の URL は 1 時間で無効になります。残したい画像は共有ボタンから保存してください。API で生成した画像には「AI 生成」の透かしが入ります（2026-09-30 からの公式仕様）。")
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }

@@ -18,6 +18,8 @@ public enum FailureKind: String, Sendable, CaseIterable, Codable {
     case modelNotFound
     case modelDeprecated
     case endpointNotFound
+    /// API そのものが提供終了した（HTTP 410 / コード 20092 など）
+    case endpointRetired
     case invalidRequest
     case contextTooLong
     case unsupportedParameter

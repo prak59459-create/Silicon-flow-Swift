@@ -47,8 +47,8 @@ final class DiagnosticsStore: ObservableObject {
             let outcome = await diagnostics.run(step, testModel: testModel)
             outcomes[step] = outcome
             if case .failed(let error) = outcome {
-                // キー・接続に問題があると以降は確実に失敗するので止める
-                blocked = step != .testChat && step != .modelList
+                // キー・接続に問題があると以降は確実に失敗するので止める（残高は参考なので止めない）
+                blocked = step.blocksLaterSteps
                 if error.kind == .invalidAPIKey {
                     await detectOtherRegion(key: currentKey, region: otherRegion)
                 }
@@ -59,13 +59,11 @@ final class DiagnosticsStore: ObservableObject {
         finishedAt = Date()
     }
 
-    /// 401 のとき、同じキーがもう一方のリージョンで使えるか確かめます。
+    /// 401 のとき、同じキーがもう一方のリージョンで使えるか確かめます（`GET /models` で確認）。
     private func detectOtherRegion(key: String, region: APIRegion) async {
         guard !key.isEmpty else { return }
-        var client = SiliconFlowClient(configuration: ClientConfiguration(region: region, apiKey: key, requestTimeout: 20))
-        client.retryPolicy = .none
-        if let info = try? await client.userInfo() {
-            otherRegionMatch = RegionDetector.Result(region: region, userInfo: info)
+        if case .success(let match) = await RegionDetector.check(apiKey: key, region: region), !Task.isCancelled {
+            otherRegionMatch = match
         }
     }
 }
