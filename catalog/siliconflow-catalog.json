@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-10-15T23:43:07Z",
+  "generatedAt" : "2026-10-20T00:25:16Z",
   "regions" : {
     "cn" : {
       "entries" : [
@@ -514,7 +514,10 @@
             "1T",
             "256K",
             "MoE",
-            "推理模型"
+            "推理模型",
+            "Vibe Coding",
+            "多模态理解 / 识别",
+            "长文本处理"
           ],
           "totalParamsB" : 1000,
           "unit" : "perMillionTokens"
@@ -1743,7 +1746,10 @@
             "视觉",
             "27B",
             "256K",
-            "推理模型"
+            "推理模型",
+            "Vibe Coding",
+            "多模态理解 / 识别",
+            "长文本处理"
           ],
           "totalParamsB" : 27,
           "unit" : "perMillionTokens"
@@ -1778,7 +1784,9 @@
             "35B",
             "256K",
             "MoE",
-            "推理模型"
+            "推理模型",
+            "通用助手",
+            "长文本处理"
           ],
           "totalParamsB" : 35,
           "unit" : "perMillionTokens"
@@ -1810,7 +1818,10 @@
             "27B",
             "256K",
             "推理模型",
-            "智能体任务"
+            "智能体任务",
+            "多模态理解 / 识别",
+            "Vibe Coding",
+            "长文本处理"
           ],
           "totalParamsB" : 27,
           "unit" : "perMillionTokens"
@@ -1921,7 +1932,9 @@
           "requiresRealName" : false,
           "summary" : "Z-Image 是 Z-Image（造相）系列的图像生成基础模型，采用单流 Diffusion Transformer 架构，面向高质量生成、稳定的生成多样性、广泛的风格覆盖和精准的提示词遵循能力。与面向速度优化的 Z-Image-Turbo 不同，Z-Image 是未蒸馏的全容量 Transformer 模型，支持完整的 Classifier-Free Guidance（CFG）和负向提示词控制，适合复杂提示词工程、专业创作流程、LoRA 训练、ControlNet 结构条件控制和语义条件控制等开发场景",
           "tags" : [
-            "6B"
+            "6B",
+            "图像生成",
+            "AIGC 内容创作"
           ],
           "totalParamsB" : 6,
           "unit" : "perImage"
@@ -1940,7 +1953,9 @@
           "requiresRealName" : false,
           "summary" : "Z-Image-Turbo 是 Z-Image 系列的 6B 文生图模型，是 Z-Image 的蒸馏版本，采用 Scalable Single-Stream DiT（S3-DiT）架构，通过 Decoupled-DMD 与强化学习后训练实现高效少步生成。该模型仅需 8 次 NFEs 即可生成高质量图像，并可在 16G VRAM 消费级设备上运行。Z-Image-Turbo 擅长写实图像生成、中英文双语文本渲染和稳健的指令遵循，适合对生成质量与推理速度都有较高要求的文生图场景",
           "tags" : [
-            "6B"
+            "6B",
+            "图像生成",
+            "AIGC 内容创作"
           ],
           "totalParamsB" : 6,
           "unit" : "perImage"
@@ -2019,7 +2034,9 @@
             "Free",
             "MoE",
             "推理模型",
-            "超长上下文"
+            "超长上下文",
+            "Vibe Coding",
+            "长文本处理"
           ],
           "totalParamsB" : 29,
           "unit" : "perMillionTokens"
@@ -2339,7 +2356,10 @@
             "284B",
             "1M",
             "MoE",
-            "推理模型"
+            "推理模型",
+            "Vibe Coding",
+            "长文本处理",
+            "通用助手"
           ],
           "totalParamsB" : 284,
           "unit" : "perMillionTokens"
@@ -2370,7 +2390,10 @@
             "1.6T",
             "1M",
             "MoE",
-            "推理模型"
+            "推理模型",
+            "旗舰全能",
+            "Vibe Coding",
+            "长文本处理"
           ],
           "totalParamsB" : 1600,
           "unit" : "perMillionTokens"
@@ -2404,7 +2427,10 @@
             "MoE",
             "推理模型",
             "Coder",
-            "智能体"
+            "智能体",
+            "Vibe Coding",
+            "长文本处理",
+            "通用助手"
           ],
           "totalParamsB" : 552,
           "unit" : "perMillionTokens"
@@ -2523,7 +2549,9 @@
             "1.6T",
             "1M",
             "MoE",
-            "推理模型"
+            "推理模型",
+            "Vibe Coding",
+            "长文本处理"
           ],
           "totalParamsB" : 1600,
           "unit" : "perMillionTokens"
@@ -2557,7 +2585,10 @@
             "256K",
             "MoE",
             "Coder",
-            "推理模型"
+            "推理模型",
+            "Vibe Coding",
+            "多模态理解 / 识别",
+            "长文本处理"
           ],
           "totalParamsB" : 1000,
           "unit" : "perMillionTokens"
@@ -2686,7 +2717,10 @@
             "1M",
             "MoE",
             "推理模型",
-            "Coder"
+            "Coder",
+            "Vibe Coding",
+            "长文本处理",
+            "旗舰全能"
           ],
           "totalParamsB" : 770,
           "unit" : "perMillionTokens"
@@ -2817,7 +2851,10 @@
             "MoE",
             "推理模型",
             "智能体",
-            "Coder"
+            "Coder",
+            "Vibe Coding",
+            "长文本处理",
+            "旗舰全能"
           ],
           "totalParamsB" : 744,
           "unit" : "perMillionTokens"
@@ -2852,7 +2889,10 @@
             "推理模型",
             "MoE",
             "Coder",
-            "智能体"
+            "智能体",
+            "多模态理解 / 识别",
+            "Vibe Coding",
+            "长文本处理"
           ],
           "totalParamsB" : 320,
           "unit" : "perMillionTokens"
@@ -3408,7 +3448,7 @@
           "priceSource" : "models.dev",
           "releaseDate" : "2024-12-26",
           "summary" : "DeepSeek chat model for instruction following, coding, and analysis",
-          "totalParamsB" : 684.53,
+          "totalParamsB" : 684.49,
           "unit" : "perMillionTokens"
         },
         {
