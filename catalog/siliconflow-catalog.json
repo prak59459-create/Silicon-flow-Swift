@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-10-20T00:25:16Z",
+  "generatedAt" : "2026-10-20T23:56:58Z",
   "regions" : {
     "cn" : {
       "entries" : [
@@ -281,7 +281,7 @@
           "priceSource" : "models.dev",
           "releaseDate" : "2026-02-13",
           "summary" : "Frontier MiniMax model for engineering, office tasks, and agentic reasoning",
-          "totalParamsB" : 228.7,
+          "totalParamsB" : 228.69,
           "unit" : "perMillionTokens"
         },
         {
@@ -2937,7 +2937,7 @@
           "priceSource" : "models.dev",
           "releaseDate" : "2026-02-15",
           "summary" : "MiniMax model for chat, coding, office work, and agentic tasks",
-          "totalParamsB" : 228.7,
+          "totalParamsB" : 228.69,
           "unit" : "perMillionTokens"
         },
         {
@@ -3641,7 +3641,7 @@
           "outputPrice" : 3.96,
           "paramsSource" : "Hugging Face",
           "priceSource" : "models.dev",
-          "releaseDate" : "2026-08-12",
+          "releaseDate" : "2026-08-13",
           "summary" : "DeepSeek V4 Pro snapshot with million-token context and support for thinking and non-thinking modes",
           "totalParamsB" : 1650.5,
           "unit" : "perMillionTokens"
