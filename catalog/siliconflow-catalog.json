@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-10-20T23:56:58Z",
+  "generatedAt" : "2026-10-22T00:02:26Z",
   "regions" : {
     "cn" : {
       "entries" : [
@@ -279,7 +279,7 @@
           "outputPrice" : 1.22,
           "paramsSource" : "Hugging Face",
           "priceSource" : "models.dev",
-          "releaseDate" : "2026-02-13",
+          "releaseDate" : "2026-02-12",
           "summary" : "Frontier MiniMax model for engineering, office tasks, and agentic reasoning",
           "totalParamsB" : 228.69,
           "unit" : "perMillionTokens"
@@ -858,7 +858,7 @@
           "outputPrice" : 0.6,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
-          "releaseDate" : "2025-07-28",
+          "releaseDate" : "2025-07-25",
           "summary" : "Qwen reasoning model for deliberate problem solving, math, and coding",
           "totalParamsB" : 235,
           "unit" : "perMillionTokens"
@@ -1035,7 +1035,7 @@
           "outputPrice" : 1,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
-          "releaseDate" : "2025-07-31",
+          "releaseDate" : "2025-07-22",
           "summary" : "Qwen coding model for software agents, repository edits, and code reasoning",
           "totalParamsB" : 480,
           "unit" : "perMillionTokens"
@@ -1283,7 +1283,8 @@
             "tools",
             "jsonMode",
             "fim",
-            "prefixCompletion"
+            "prefixCompletion",
+            "videoInput"
           ],
           "category" : "vision",
           "contextLength" : 262144,
@@ -1321,7 +1322,8 @@
             "jsonMode",
             "fim",
             "prefixCompletion",
-            "reasoning"
+            "reasoning",
+            "videoInput"
           ],
           "category" : "vision",
           "contextLength" : 262144,
@@ -1357,7 +1359,8 @@
             "vision",
             "tools",
             "jsonMode",
-            "prefixCompletion"
+            "prefixCompletion",
+            "videoInput"
           ],
           "category" : "vision",
           "contextLength" : 262144,
@@ -1391,7 +1394,8 @@
             "tools",
             "jsonMode",
             "prefixCompletion",
-            "reasoning"
+            "reasoning",
+            "videoInput"
           ],
           "category" : "vision",
           "contextLength" : 262144,
@@ -1425,7 +1429,8 @@
             "vision",
             "tools",
             "jsonMode",
-            "prefixCompletion"
+            "prefixCompletion",
+            "videoInput"
           ],
           "category" : "vision",
           "contextLength" : 262144,
@@ -1649,7 +1654,7 @@
           "outputPrice" : 1.74,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
-          "releaseDate" : "2026-02-16",
+          "releaseDate" : "2026-02-15",
           "summary" : "Qwen vision-language model for visual reasoning, documents, and agent tasks",
           "totalParamsB" : 397,
           "unit" : "perMillionTokens"
@@ -2418,7 +2423,7 @@
           "releaseDate" : "2026-09-09",
           "requiresChargedBalance" : false,
           "requiresRealName" : false,
-          "summary" : "DeepSeek-V4.1-Flash 是 DeepSeek 推出的多模态混合专家模型，原生支持图像与文本理解，擅长编程、深度推理和智能体任务",
+          "summary" : "DeepSeek-V4.1-Flash-1017 是 DeepSeek-V4.1-Flash 的升级版本，原生支持图像与文本理解，在推理、编程、智能体任务和视觉理解方面进一步提升，同时减少任务执行时间与输出长度，提高复杂任务的完成效率",
           "tags" : [
             "Tools",
             "视觉",
@@ -2429,7 +2434,6 @@
             "Coder",
             "智能体",
             "Vibe Coding",
-            "长文本处理",
             "通用助手"
           ],
           "totalParamsB" : 552,
@@ -2631,8 +2635,7 @@
           "activeParamsB" : 13,
           "capabilities" : [
             "jsonMode",
-            "reasoning",
-            "tools"
+            "reasoning"
           ],
           "category" : "chat",
           "contextLength" : 131072,
@@ -2935,7 +2938,7 @@
           "outputPrice" : 1.2,
           "paramsSource" : "Hugging Face",
           "priceSource" : "models.dev",
-          "releaseDate" : "2026-02-15",
+          "releaseDate" : "2026-02-12",
           "summary" : "MiniMax model for chat, coding, office work, and agentic tasks",
           "totalParamsB" : 228.69,
           "unit" : "perMillionTokens"
@@ -2997,7 +3000,7 @@
           "outputPrice" : 0.05,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
-          "releaseDate" : "2024-09-18",
+          "releaseDate" : "2024-09-19",
           "summary" : "Qwen instruction model for multilingual chat, reasoning, and tool use",
           "totalParamsB" : 7,
           "unit" : "perMillionTokens"
@@ -3039,7 +3042,7 @@
           "outputPrice" : 0.3,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
-          "releaseDate" : "2025-07-30",
+          "releaseDate" : "2025-07-28",
           "summary" : "Qwen instruction model for multilingual chat, reasoning, and tool use",
           "totalParamsB" : 30,
           "unit" : "perMillionTokens"
@@ -3060,7 +3063,7 @@
           "outputPrice" : 0.57,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
-          "releaseDate" : "2025-04-30",
+          "releaseDate" : "2025-04-28",
           "summary" : "Qwen instruction model for multilingual chat, reasoning, and tool use",
           "totalParamsB" : 32,
           "unit" : "perMillionTokens"
@@ -3081,7 +3084,7 @@
           "outputPrice" : 0.06,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
-          "releaseDate" : "2025-04-30",
+          "releaseDate" : "2025-04-29",
           "summary" : "Qwen instruction model for multilingual chat, reasoning, and tool use",
           "totalParamsB" : 8,
           "unit" : "perMillionTokens"
@@ -3102,7 +3105,7 @@
           "outputPrice" : 0.28,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
-          "releaseDate" : "2025-08-01",
+          "releaseDate" : "2025-07-31",
           "summary" : "Qwen coding model for software agents, repository edits, and code reasoning",
           "totalParamsB" : 30,
           "unit" : "perMillionTokens"
@@ -3123,7 +3126,7 @@
           "outputPrice" : 1,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
-          "releaseDate" : "2025-07-31",
+          "releaseDate" : "2025-07-22",
           "summary" : "Qwen coding model for software agents, repository edits, and code reasoning",
           "totalParamsB" : 480,
           "unit" : "perMillionTokens"
@@ -3145,7 +3148,7 @@
           "outputPrice" : 1,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
-          "releaseDate" : "2025-10-05",
+          "releaseDate" : "2025-10-04",
           "summary" : "Qwen vision-language model for visual reasoning, documents, and agent tasks",
           "totalParamsB" : 30,
           "unit" : "perMillionTokens"
@@ -3240,10 +3243,11 @@
         {
           "activeParamsB" : 10,
           "capabilities" : [
+            "vision",
             "tools",
             "jsonMode"
           ],
-          "category" : "chat",
+          "category" : "vision",
           "contextLength" : 262144,
           "currency" : "USD",
           "displayName" : "Qwen3.5 122B-A10B",
@@ -3261,10 +3265,11 @@
         },
         {
           "capabilities" : [
+            "vision",
             "tools",
             "jsonMode"
           ],
-          "category" : "chat",
+          "category" : "vision",
           "contextLength" : 262144,
           "currency" : "USD",
           "displayName" : "Qwen3.5 27B",
@@ -3283,10 +3288,11 @@
         {
           "activeParamsB" : 3,
           "capabilities" : [
+            "vision",
             "tools",
             "jsonMode"
           ],
-          "category" : "chat",
+          "category" : "vision",
           "contextLength" : 262144,
           "currency" : "USD",
           "displayName" : "Qwen3.5 35B-A3B",
@@ -3326,10 +3332,11 @@
         },
         {
           "capabilities" : [
+            "vision",
             "tools",
             "jsonMode"
           ],
-          "category" : "chat",
+          "category" : "vision",
           "contextLength" : 262144,
           "currency" : "USD",
           "id" : "Qwen/Qwen3.5-9B",
@@ -3339,17 +3346,18 @@
           "outputPrice" : 0.15,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
-          "releaseDate" : "2026-03-03",
+          "releaseDate" : "2026-02-23",
           "summary" : "Qwen instruction model for multilingual chat, reasoning, and tool use",
           "totalParamsB" : 9,
           "unit" : "perMillionTokens"
         },
         {
           "capabilities" : [
+            "vision",
             "tools",
             "jsonMode"
           ],
-          "category" : "chat",
+          "category" : "vision",
           "contextLength" : 262144,
           "currency" : "USD",
           "displayName" : "Qwen3.6 27B",
@@ -3368,18 +3376,19 @@
         {
           "activeParamsB" : 3,
           "capabilities" : [
+            "vision",
             "tools",
             "jsonMode"
           ],
-          "category" : "chat",
+          "category" : "vision",
           "contextLength" : 262144,
           "currency" : "USD",
           "displayName" : "Qwen3.6 35B-A3B",
           "id" : "Qwen/Qwen3.6-35B-A3B",
-          "inputPrice" : 0.2,
+          "inputPrice" : 0.24,
           "isFree" : false,
           "maxOutputTokens" : 262144,
-          "outputPrice" : 1.6,
+          "outputPrice" : 1.8,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
           "releaseDate" : "2026-04-17",
@@ -3446,7 +3455,7 @@
           "outputPrice" : 1,
           "paramsSource" : "Hugging Face",
           "priceSource" : "models.dev",
-          "releaseDate" : "2024-12-26",
+          "releaseDate" : "2025-03-24",
           "summary" : "DeepSeek chat model for instruction following, coding, and analysis",
           "totalParamsB" : 684.49,
           "unit" : "perMillionTokens"
@@ -3467,7 +3476,7 @@
           "outputPrice" : 1,
           "paramsSource" : "Hugging Face",
           "priceSource" : "models.dev",
-          "releaseDate" : "2025-08-25",
+          "releaseDate" : "2025-08-21",
           "summary" : "DeepSeek chat model for instruction following, coding, and analysis",
           "totalParamsB" : 684.53,
           "unit" : "perMillionTokens"
@@ -3509,7 +3518,7 @@
           "outputPrice" : 0.42,
           "paramsSource" : "Hugging Face",
           "priceSource" : "models.dev",
-          "releaseDate" : "2025-12-03",
+          "releaseDate" : "2025-12-01",
           "summary" : "DeepSeek chat model for instruction following, coding, and analysis",
           "totalParamsB" : 685.36,
           "unit" : "perMillionTokens"
@@ -3648,10 +3657,11 @@
         },
         {
           "capabilities" : [
+            "vision",
             "tools",
             "jsonMode"
           ],
-          "category" : "chat",
+          "category" : "vision",
           "contextLength" : 262144,
           "currency" : "USD",
           "displayName" : "Gemma 4 12B IT",
@@ -3670,15 +3680,16 @@
         {
           "activeParamsB" : 4,
           "capabilities" : [
+            "vision",
             "tools",
             "jsonMode"
           ],
-          "category" : "chat",
+          "category" : "vision",
           "contextLength" : 262144,
           "currency" : "USD",
           "displayName" : "Gemma 4 26B A4B IT",
           "id" : "google/gemma-4-26B-A4B-it",
-          "inputPrice" : 0.12,
+          "inputPrice" : 0.14,
           "isFree" : false,
           "maxOutputTokens" : 262144,
           "outputPrice" : 0.4,
@@ -3691,18 +3702,19 @@
         },
         {
           "capabilities" : [
+            "vision",
             "tools",
             "jsonMode"
           ],
-          "category" : "chat",
+          "category" : "vision",
           "contextLength" : 262144,
           "currency" : "USD",
           "displayName" : "Gemma 4 31B IT",
           "id" : "google/gemma-4-31B-it",
-          "inputPrice" : 0.13,
+          "inputPrice" : 0.75,
           "isFree" : false,
           "maxOutputTokens" : 262144,
-          "outputPrice" : 0.4,
+          "outputPrice" : 1,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
           "releaseDate" : "2026-04-02",
@@ -3790,7 +3802,7 @@
           "outputPrice" : 3.4,
           "paramsSource" : "Hugging Face",
           "priceSource" : "models.dev",
-          "releaseDate" : "2026-04-21",
+          "releaseDate" : "2026-04-20",
           "summary" : "Kimi multimodal agent model for visual understanding, coding, and planning",
           "totalParamsB" : 1026.88,
           "unit" : "perMillionTokens"
@@ -3867,7 +3879,6 @@
         },
         {
           "capabilities" : [
-            "tools",
             "jsonMode",
             "reasoning"
           ],
@@ -3881,14 +3892,13 @@
           "outputPrice" : 0.45,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
-          "releaseDate" : "2025-08-13",
+          "releaseDate" : "2025-08-05",
           "summary" : "Open-weight GPT model for self-hosted reasoning and instruction-following workloads",
           "totalParamsB" : 120,
           "unit" : "perMillionTokens"
         },
         {
           "capabilities" : [
-            "tools",
             "jsonMode"
           ],
           "category" : "chat",
@@ -3901,7 +3911,7 @@
           "outputPrice" : 0.18,
           "paramsSource" : "models.dev",
           "priceSource" : "models.dev",
-          "releaseDate" : "2025-08-13",
+          "releaseDate" : "2025-08-05",
           "summary" : "Open-weight GPT model for self-hosted reasoning and instruction-following workloads",
           "totalParamsB" : 20,
           "unit" : "perMillionTokens"
@@ -3918,11 +3928,11 @@
           "id" : "stepfun-ai/Step-3.5-Flash",
           "inputPrice" : 0.1,
           "isFree" : false,
-          "maxOutputTokens" : 262000,
+          "maxOutputTokens" : 66000,
           "outputPrice" : 0.3,
           "paramsSource" : "Hugging Face",
           "priceSource" : "models.dev",
-          "releaseDate" : "2026-02-11",
+          "releaseDate" : "2026-01-29",
           "summary" : "StepFun flash model for efficient multimodal reasoning, coding, and tool use",
           "totalParamsB" : 199.38,
           "unit" : "perMillionTokens"
@@ -3930,7 +3940,6 @@
         {
           "activeParamsB" : 13,
           "capabilities" : [
-            "tools",
             "jsonMode",
             "reasoning"
           ],
@@ -4002,7 +4011,7 @@
           "id" : "zai-org/GLM-5",
           "inputPrice" : 0.95,
           "isFree" : false,
-          "maxOutputTokens" : 205000,
+          "maxOutputTokens" : 131072,
           "outputPrice" : 2.55,
           "paramsSource" : "Hugging Face",
           "priceSource" : "models.dev",
@@ -4027,7 +4036,7 @@
           "outputPrice" : 3.74,
           "paramsSource" : "Hugging Face",
           "priceSource" : "models.dev",
-          "releaseDate" : "2026-04-08",
+          "releaseDate" : "2026-04-07",
           "summary" : "Flagship GLM model for hybrid reasoning, coding, and agentic engineering",
           "totalParamsB" : 753.86,
           "unit" : "perMillionTokens"
