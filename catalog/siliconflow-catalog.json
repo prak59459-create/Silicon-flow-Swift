@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-10-22T00:02:26Z",
+  "generatedAt" : "2026-10-23T23:53:21Z",
   "regions" : {
     "cn" : {
       "entries" : [
@@ -262,26 +262,6 @@
             "RAG"
           ],
           "totalParamsB" : 0.568,
-          "unit" : "perMillionTokens"
-        },
-        {
-          "capabilities" : [
-            "tools",
-            "jsonMode"
-          ],
-          "category" : "chat",
-          "contextLength" : 192000,
-          "currency" : "USD",
-          "id" : "Pro/MiniMaxAI/MiniMax-M2.5",
-          "inputPrice" : 0.3,
-          "isFree" : false,
-          "maxOutputTokens" : 131000,
-          "outputPrice" : 1.22,
-          "paramsSource" : "Hugging Face",
-          "priceSource" : "models.dev",
-          "releaseDate" : "2026-02-12",
-          "summary" : "Frontier MiniMax model for engineering, office tasks, and agentic reasoning",
-          "totalParamsB" : 228.69,
           "unit" : "perMillionTokens"
         },
         {
@@ -842,28 +822,6 @@
           "unit" : "perMillionTokens"
         },
         {
-          "activeParamsB" : 22,
-          "capabilities" : [
-            "tools",
-            "jsonMode",
-            "reasoning"
-          ],
-          "category" : "chat",
-          "contextLength" : 262000,
-          "currency" : "USD",
-          "id" : "Qwen/Qwen3-235B-A22B-Thinking-2507",
-          "inputPrice" : 0.13,
-          "isFree" : false,
-          "maxOutputTokens" : 262000,
-          "outputPrice" : 0.6,
-          "paramsSource" : "models.dev",
-          "priceSource" : "models.dev",
-          "releaseDate" : "2025-07-25",
-          "summary" : "Qwen reasoning model for deliberate problem solving, math, and coding",
-          "totalParamsB" : 235,
-          "unit" : "perMillionTokens"
-        },
-        {
           "activeParamsB" : 3,
           "capabilities" : [
             "tools",
@@ -1017,27 +975,6 @@
             "Vibe Coding"
           ],
           "totalParamsB" : 30,
-          "unit" : "perMillionTokens"
-        },
-        {
-          "activeParamsB" : 35,
-          "capabilities" : [
-            "tools",
-            "jsonMode"
-          ],
-          "category" : "chat",
-          "contextLength" : 262000,
-          "currency" : "USD",
-          "id" : "Qwen/Qwen3-Coder-480B-A35B-Instruct",
-          "inputPrice" : 0.25,
-          "isFree" : false,
-          "maxOutputTokens" : 262000,
-          "outputPrice" : 1,
-          "paramsSource" : "models.dev",
-          "priceSource" : "models.dev",
-          "releaseDate" : "2025-07-22",
-          "summary" : "Qwen coding model for software agents, repository edits, and code reasoning",
-          "totalParamsB" : 480,
           "unit" : "perMillionTokens"
         },
         {
@@ -1634,29 +1571,6 @@
             "推理模型"
           ],
           "totalParamsB" : 35,
-          "unit" : "perMillionTokens"
-        },
-        {
-          "activeParamsB" : 17,
-          "capabilities" : [
-            "vision",
-            "videoInput",
-            "tools",
-            "reasoning"
-          ],
-          "category" : "vision",
-          "contextLength" : 262144,
-          "currency" : "USD",
-          "id" : "Qwen/Qwen3.5-397B-A17B",
-          "inputPrice" : 0.29,
-          "isFree" : false,
-          "maxOutputTokens" : 65536,
-          "outputPrice" : 1.74,
-          "paramsSource" : "models.dev",
-          "priceSource" : "models.dev",
-          "releaseDate" : "2026-02-15",
-          "summary" : "Qwen vision-language model for visual reasoning, documents, and agent tasks",
-          "totalParamsB" : 397,
           "unit" : "perMillionTokens"
         },
         {
@@ -4133,7 +4047,7 @@
   "schemaVersion" : 1,
   "sources" : [
     "SiliconFlow公式サイト: 92 models",
-    "models.dev: cn 44 / global 57 models",
+    "models.dev: cn 40 / global 57 models",
     "Hugging Face: 29 models enriched"
   ]
 }
