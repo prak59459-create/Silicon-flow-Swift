@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-11-02T00:48:43Z",
+  "generatedAt" : "2026-11-04T01:27:10Z",
   "regions" : {
     "cn" : {
       "entries" : [
@@ -188,6 +188,27 @@
             "AIGC 内容创作"
           ],
           "totalParamsB" : 2.58,
+          "unit" : "perImage"
+        },
+        {
+          "category" : "textToImage",
+          "currency" : "CNY",
+          "displayName" : "MOSS-Image",
+          "id" : "OpenMOSS-Team/MOSS-Image",
+          "isFree" : true,
+          "outputPrice" : 0,
+          "paramsSource" : "SiliconFlow公式サイト",
+          "priceSource" : "SiliconFlow公式サイト",
+          "releaseDate" : "2026-10-15",
+          "requiresChargedBalance" : false,
+          "requiresRealName" : false,
+          "summary" : "MOSS-Image-SFT 是 OpenMOSS 基于 MOSS-Image-Base 监督微调的开源文生图模型，采用 5B 参数主干，支持最长 4K tokens 的提示词、中英文文字渲染与结构化布局控制，进一步优化文字分组与画面排版，适用于海报、信息图、插画和写实图像创作",
+          "tags" : [
+            "5B",
+            "图像生成",
+            "AIGC 内容创作"
+          ],
+          "totalParamsB" : 5,
           "unit" : "perImage"
         },
         {
@@ -4051,7 +4072,7 @@
   },
   "schemaVersion" : 1,
   "sources" : [
-    "SiliconFlow公式サイト: 92 models",
+    "SiliconFlow公式サイト: 93 models",
     "models.dev: cn 45 / global 57 models",
     "Hugging Face: 29 models enriched"
   ]
