@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-11-04T01:27:10Z",
+  "generatedAt" : "2026-11-10T03:37:41Z",
   "regions" : {
     "cn" : {
       "entries" : [
@@ -548,37 +548,21 @@
           "capabilities" : [
             "tools",
             "jsonMode",
-            "fim",
-            "prefixCompletion",
             "reasoning"
           ],
           "category" : "chat",
-          "contextLength" : 202752,
-          "currency" : "CNY",
-          "displayName" : "GLM-5.1 (Pro)",
+          "contextLength" : 205000,
+          "currency" : "USD",
           "id" : "Pro/zai-org/GLM-5.1",
-          "inputPrice" : 6,
+          "inputPrice" : 0.89668487,
           "isFree" : false,
           "maxOutputTokens" : 205000,
-          "outputPrice" : 28,
-          "paramsSource" : "SiliconFlow公式サイト",
-          "priceSource" : "SiliconFlow公式サイト",
+          "outputPrice" : 3.58673947,
+          "paramsSource" : "Hugging Face",
+          "priceSource" : "models.dev",
           "releaseDate" : "2026-04-07",
-          "requiresChargedBalance" : false,
-          "requiresRealName" : false,
-          "summary" : "GLM-5.1 是面向智能体工程的下一代旗舰模型，采用混合专家（MoE）架构，拥有 754B 参数。该模型编程能力显著增强，在 SWE-Bench Pro 上取得了领先水平，在 NL2Repo（仓库生成）和 Terminal-Bench 2.0（真实终端任务）等基准上大幅领先前代。GLM-5.1 专为长周期智能体任务设计，能够以更好的判断力处理模糊问题，拆解复杂任务、执行实验、分析结果，并在数百轮迭代和数千次工具调用中持续优化",
-          "tags" : [
-            "FIM",
-            "Prefix",
-            "Tools",
-            "754B",
-            "200K",
-            "MoE",
-            "推理模型",
-            "Vibe Coding",
-            "旗舰全能"
-          ],
-          "totalParamsB" : 754,
+          "summary" : "Flagship GLM model for hybrid reasoning, coding, and agentic engineering",
+          "totalParamsB" : 753.86,
           "unit" : "perMillionTokens"
         },
         {
@@ -1901,52 +1885,6 @@
           ],
           "totalParamsB" : 6,
           "unit" : "perImage"
-        },
-        {
-          "activeParamsB" : 14,
-          "category" : "imageToVideo",
-          "currency" : "CNY",
-          "displayName" : "Wan2.2-I2V-A14B",
-          "id" : "Wan-AI/Wan2.2-I2V-A14B",
-          "isFree" : false,
-          "outputPrice" : 2,
-          "paramsSource" : "SiliconFlow公式サイト",
-          "priceSource" : "SiliconFlow公式サイト",
-          "releaseDate" : "2025-07-27",
-          "requiresChargedBalance" : false,
-          "requiresRealName" : false,
-          "summary" : "Wan2.2-I2V-A14B 是由阿里巴巴旗下 AI 项目 Wan-AI 发布的、业界首批采用混合专家（MoE）架构的开源图像到视频（Image-to-Video）生成模型之一。该模型专注于将静态图像和文本提示结合，生成平滑、自然的动态视频序列。其核心创新在于 MoE 架构，通过一个高噪声专家处理视频前期的大致结构，一个低噪声专家精修后期的画面细节，从而在不增加推理成本的情况下提升了模型性能。与前代模型相比，Wan2.2 在更大规模的数据集上进行了训练，显著增强了对复杂运动、美学风格和语义的理解能力，能生成更稳定的视频，减少了不真实的镜头移动",
-          "tags" : [
-            "MoE",
-            "27B",
-            "视频生成",
-            "AIGC 内容创作"
-          ],
-          "totalParamsB" : 27,
-          "unit" : "perVideo"
-        },
-        {
-          "activeParamsB" : 14,
-          "category" : "textToVideo",
-          "currency" : "CNY",
-          "displayName" : "Wan2.2-T2V-A14B",
-          "id" : "Wan-AI/Wan2.2-T2V-A14B",
-          "isFree" : false,
-          "outputPrice" : 2,
-          "paramsSource" : "SiliconFlow公式サイト",
-          "priceSource" : "SiliconFlow公式サイト",
-          "releaseDate" : "2025-07-27",
-          "requiresChargedBalance" : false,
-          "requiresRealName" : false,
-          "summary" : "Wan2.2-T2V-A14B 是由阿里巴巴发布的、业界首个采用混合专家（MoE）架构的开源视频生成模型。该模型专注于文本到视频（Text-to-Video）的生成任务，能够制作时长 5 秒、分辨率为 480P 或 720P 的视频。通过引入 MoE 架构，模型在保持推理成本几乎不变的情况下扩大了总容量；其包含一个处理早期阶段整体布局的高噪声专家，和一个精炼后期视频细节的低噪声专家。此外，Wan2.2 融入了精选的美学数据，对光照、构图、色彩等维度进行了细致标注，从而实现了对电影级风格更精准、可控的生成。与前代相比，该模型在更大数据集上进行了训练，显著增…",
-          "tags" : [
-            "MoE",
-            "27B",
-            "视频生成",
-            "AIGC 内容创作"
-          ],
-          "totalParamsB" : 27,
-          "unit" : "perVideo"
         },
         {
           "activeParamsB" : 4,
@@ -4072,7 +4010,7 @@
   },
   "schemaVersion" : 1,
   "sources" : [
-    "SiliconFlow公式サイト: 93 models",
+    "SiliconFlow公式サイト: 90 models",
     "models.dev: cn 45 / global 57 models",
     "Hugging Face: 29 models enriched"
   ]
