@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-11-10T03:37:41Z",
+  "generatedAt" : "2026-11-11T01:16:28Z",
   "regions" : {
     "cn" : {
       "entries" : [
@@ -189,6 +189,28 @@
           ],
           "totalParamsB" : 2.58,
           "unit" : "perImage"
+        },
+        {
+          "category" : "textToVideo",
+          "currency" : "CNY",
+          "displayName" : "MiniMax-H3",
+          "id" : "MiniMaxAI/MiniMax-H3",
+          "isFree" : true,
+          "outputPrice" : 0,
+          "paramsSource" : "SiliconFlow公式サイト",
+          "priceSource" : "SiliconFlow公式サイト",
+          "releaseDate" : "2026-07-30",
+          "requiresChargedBalance" : false,
+          "requiresRealName" : false,
+          "summary" : "MiniMax-H3（FL2VA）是 MiniMax 推出的视频生成模型，支持根据文本描述生成视频，也可通过首尾帧图像控制画面的起止状态，适用于广告、电商展示、品牌宣传和创意短片制作",
+          "tags" : [
+            "33B",
+            "文生视频",
+            "视频生成",
+            "AIGC 内容创作"
+          ],
+          "totalParamsB" : 33,
+          "unit" : "perVideo"
         },
         {
           "category" : "textToImage",
@@ -4010,7 +4032,7 @@
   },
   "schemaVersion" : 1,
   "sources" : [
-    "SiliconFlow公式サイト: 90 models",
+    "SiliconFlow公式サイト: 91 models",
     "models.dev: cn 45 / global 57 models",
     "Hugging Face: 29 models enriched"
   ]
