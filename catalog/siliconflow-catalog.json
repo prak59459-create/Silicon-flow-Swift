@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-11-11T01:16:28Z",
+  "generatedAt" : "2026-11-15T01:06:13Z",
   "regions" : {
     "cn" : {
       "entries" : [
@@ -2314,6 +2314,7 @@
           "id" : "deepseek-ai/DeepSeek-V4.1-Flash",
           "inputPrice" : 2,
           "isFree" : false,
+          "maxOutputTokens" : 384000,
           "outputPrice" : 8,
           "paramsSource" : "SiliconFlow公式サイト",
           "priceSource" : "SiliconFlow公式サイト",
@@ -4033,7 +4034,7 @@
   "schemaVersion" : 1,
   "sources" : [
     "SiliconFlow公式サイト: 91 models",
-    "models.dev: cn 45 / global 57 models",
+    "models.dev: cn 46 / global 57 models",
     "Hugging Face: 29 models enriched"
   ]
 }
