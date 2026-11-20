@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-11-17T03:57:21Z",
+  "generatedAt" : "2026-11-20T02:22:34Z",
   "regions" : {
     "cn" : {
       "entries" : [
@@ -1879,6 +1879,25 @@
           ],
           "totalParamsB" : 6,
           "unit" : "perImage"
+        },
+        {
+          "category" : "speechToText",
+          "currency" : "CNY",
+          "displayName" : "Xing-Audio4.0-ASR-Preview",
+          "id" : "XingChenAGI/Xing-Audio4.0-ASR-Preview",
+          "inputPrice" : 0,
+          "isFree" : true,
+          "outputPrice" : 0,
+          "priceSource" : "SiliconFlow公式サイト",
+          "releaseDate" : "2026-11-14",
+          "requiresChargedBalance" : false,
+          "requiresRealName" : false,
+          "summary" : "Xing-Audio4.0-ASR-Preview 是中电信人工智能公司 XingChen AGI Lab 推出的新一代高性能英文语音识别模型，专注于高精度英文自动语音识别（Automatic Speech Recognition, ASR）。在 Artificial Analysis（AA）非流式（Non-Streaming）语音识别榜单中位列全球第三，AA-WER 达到 2.0%，展现出卓越的英文语音转写能力。模型适用于英文会议、商务交流、在线教育、播客及媒体内容转写等多种场景。",
+          "tags" : [
+            "ASR",
+            "语音识别"
+          ],
+          "unit" : "perMillionTokens"
         },
         {
           "activeParamsB" : 4,
@@ -3937,7 +3956,7 @@
   },
   "schemaVersion" : 1,
   "sources" : [
-    "SiliconFlow公式サイト: 85 models",
+    "SiliconFlow公式サイト: 86 models",
     "models.dev: cn 46 / global 57 models",
     "Hugging Face: 30 models enriched"
   ]
