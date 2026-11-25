@@ -1,5 +1,5 @@
 {
-  "generatedAt" : "2026-11-20T02:22:34Z",
+  "generatedAt" : "2026-11-25T04:16:51Z",
   "regions" : {
     "cn" : {
       "entries" : [
@@ -3673,7 +3673,7 @@
           "paramsSource" : "Hugging Face",
           "priceSource" : "models.dev",
           "releaseDate" : "2026-07-16",
-          "summary" : "Multimodal Kimi model with 1M context and toggleable max-effort thinking for long-horizon agent work",
+          "summary" : "Multimodal Kimi model with 1M context and always-on thinking for long-horizon agent work",
           "totalParamsB" : 2779.93,
           "unit" : "perMillionTokens"
         },
